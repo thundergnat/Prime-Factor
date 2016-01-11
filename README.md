@@ -20,7 +20,13 @@ BUGS
 Not very fast for large integers. Probably best to restrict it to
 integers < 2^32.
 
+This would probably be better as a CORE function but until it arrives,
+this is available.
+
 AUTHOR
+
+Adapted from code on L<http://rosettacode.org/wiki/Prime_decomposition>
+originally by TimToady with code modifications from Grondilu
 
 Stephen Schulze (often seen lurking on #perl6 IRC as thundergnat)
 
