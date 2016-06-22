@@ -24,7 +24,7 @@ this is available.
 
 AUTHOR
 
-Adapted from code code from Damien Conways "On the Shoulders of Giants"
+Adapted from code from Damien Conways "On the Shoulders of Giants"
 presentation at YAPC::NA 2016 and Wikipedia "Pollard's rho algorithm".
 
 Stephen Schulze (often seen lurking on #perl6 IRC as thundergnat)
