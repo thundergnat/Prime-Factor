@@ -1,4 +1,4 @@
-unit module Prime::Factor:ver<0.1.0>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.1.1>:auth<github:thundergnat>;
 use v6;
 
 sub factors ( Int $n where * > 0 ) is export {
@@ -14,7 +14,7 @@ sub factors ( Int $n where * > 0 ) is export {
 sub random (Int $n) {
     my ($x, $fixed, $ρ, $factor) = 2, 2, 2, 1;
     # randomize the g(x) function to avoid getting caught in endless loops
-    sub g {($^a * $^a + (^$^b).pick) % $^b };
+    sub g {($^a * $^a + (1..255).pick) % $^b };
     while $factor == 1 {
         for 1 ..^ $ρ {
             $x = g($x, $n);
