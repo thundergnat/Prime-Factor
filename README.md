@@ -17,16 +17,15 @@ USAGE
 
 BUGS
 
-Not very fast for large integers. Probably best to restrict it to
-integers < 2^32.
+Not very fast for very large integers.
 
 This would probably be better as a CORE function but until it arrives,
 this is available.
 
 AUTHOR
 
-Adapted from code on L<http://rosettacode.org/wiki/Prime_decomposition>
-originally by TimToady with code modifications from Grondilu
+Adapted from code code from Damien Conways "On the Shoulders of Giants"
+presentation at YAPC::NA 2016 and Wikipedia "Pollard's rho algorithm".
 
 Stephen Schulze (often seen lurking on #perl6 IRC as thundergnat)
 
