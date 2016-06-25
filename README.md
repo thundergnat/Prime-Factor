@@ -6,20 +6,24 @@ Prime::Factor
 
 SYNOPSIS
 
-Exports the sub factors();
+Exports the sub prime-factors();
 Returns a list of all of the prime factors of a positive integer.
 
 USAGE
 
     use Prime::Factor;
 
-    say factors(720); # (2 2 2 2 3 3 5)
+    say prime-factors(720); # (2 2 2 2 3 3 5)
+
+    say prime-factors(2**100-1) # (3 5 5 5 11 31 41 101 251 601 1801 4051 8101 268501)
+
 
 BUGS
 
-Not very fast for very large integers.
+Not very fast for very large integers. Or more accurately: not very fast for
+integers that have two or more prime factors larger than 2^64.
 
-This would probably be better as a CORE function but until it arrives,
+This would probably be better as a CORE function but until and if that arrives,
 this is available.
 
 AUTHOR
