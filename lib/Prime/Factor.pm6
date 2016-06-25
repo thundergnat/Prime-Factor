@@ -10,7 +10,7 @@ sub prime-factors ( Int $n where * > 0 ) is export {
 
 # use Pollard's rho algorithm to speed factorization
 # See Wikipedia "Pollard's rho algorithm" and
-# Damien Conways "On the Shoulders of Giants" presentation from YAPC::NA 2016
+# Damian Conways "On the Shoulders of Giants" presentation from YAPC::NA 2016
 sub find-factor ( Int $n, $constant = 1 ) {
     my ($x, $rho, $factor) = 2, 1, 1;
     while $factor == 1 {

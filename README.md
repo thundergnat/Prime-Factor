@@ -28,10 +28,10 @@ this is available.
 
 AUTHOR
 
-Adapted from code from Damien Conways "On the Shoulders of Giants"
-presentation at YAPC::NA 2016 and Wikipedia "Pollard's rho algorithm".
-
 Stephen Schulze (often seen lurking on #perl6 IRC as thundergnat)
+
+Adapted from code from Damian Conways "On the Shoulders of Giants"
+presentation at YAPC::NA 2016 and Wikipedia "Pollard's rho algorithm".
 
 LICENSE
 
