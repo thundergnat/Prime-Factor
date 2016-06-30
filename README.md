@@ -21,7 +21,7 @@ USAGE
 BUGS
 
 Not very fast for very large integers. Or more accurately: not very fast for
-integers that have two or more prime factors larger than 2^64.
+integers that have two or more prime factors larger than ~2^40.
 
 This would probably be better as a CORE function but until and if that arrives,
 this is available.
