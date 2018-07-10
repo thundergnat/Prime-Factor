@@ -1,4 +1,4 @@
-unit module Prime::Factor:ver<0.2.2>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.2.3>:auth<github:thundergnat>;
 use v6;
 
 sub prime-factors ( Int $n where * > 0 ) is export {
@@ -12,10 +12,10 @@ sub prime-factors ( Int $n where * > 0 ) is export {
 # See Wikipedia "Pollard's rho algorithm" and
 # Damian Conways "On the Shoulders of Giants" presentation from YAPC::NA 2016
 sub find-factor ( Int $n, $constant = 1 ) {
-    return 2  if $n %% 2;   # catch common factors
-    return 3  if $n %% 3;
-    return 5  if $n %% 5;   # which cause recursion
-    return 41 if $n == 1681;
+    return 2 unless $n +& 1;
+    if (my $gcd = $n gcd 6541380665835015) > 1 { # magic number: [*] primes 3 .. 43
+        return $gcd if $gcd != $n
+    }
     my $x      = 2;
     my $rho    = 1;
     my $factor = 1;

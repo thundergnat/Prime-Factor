@@ -1,7 +1,7 @@
 {
     "perl"        : "6.*",
     "name"        : "Prime::Factor",
-    "version"     : "0.2.2",
+    "version"     : "0.2.3",
     "description" : "Returns all prime factors of an integer.",
     "authors"     : [ "Steve Schulze (thundergnat)" ],
     "provides"    : {
@@ -11,5 +11,5 @@
     "source-type" : "git",
     "source-url"  : "git://github.com/thundergnat/Prime-Factor.git",
     "license"     : "Artistic-2.0",
-    "tags"        : [ "Number", "Prime" ]
+    "tags"        : [ "Number", "Prime", "Factor" ]
 }
