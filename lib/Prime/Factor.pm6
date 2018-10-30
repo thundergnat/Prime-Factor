@@ -1,5 +1,5 @@
-unit module Prime::Factor:ver<0.2.3>:auth<github:thundergnat>;
 use v6;
+unit module Prime::Factor:ver<0.2.4>:auth<github:thundergnat>;
 
 sub prime-factors ( Int $n where * > 0 ) is export {
     return $n if $n.is-prime;
