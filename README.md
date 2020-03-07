@@ -4,6 +4,8 @@ NAME
 
 Prime::Factor
 
+[![Build Status](https://travis-ci.org/thundergnat/Prime-Factor.svg?branch=master)](https://travis-ci.org/thundergnat/Prime-Factor)
+
 SYNOPSIS
 
 Exports the sub prime-factors();
