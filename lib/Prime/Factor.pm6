@@ -1,5 +1,4 @@
-use v6;
-unit module Prime::Factor:ver<0.2.4>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.3.0>:auth<github:thundergnat>;
 
 sub prime-factors ( Int $n where * > 0 ) is export {
     return $n if $n.is-prime;
@@ -32,4 +31,37 @@ sub find-factor ( Int $n, $constant = 1 ) {
     }
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
     $factor;
+}
+
+constant SMALL = 1 ..^ 10⁴;
+constant BIG   = 10⁴ .. ∞;
+
+multi divisors (\N where BIG) is export {
+    my \factors = bag prime-factors(N);
+    return (1,N) if factors.total == 1;
+    my \these = factors.keys xx *;
+    my \upto = [X] factors.map: { 0 .. .value }
+    +factors.keys == 1
+      ?? (flat these «**« upto).reverse
+      !! ([×] .list for these «**« upto)
+}
+
+multi divisors (\N where SMALL) is export {
+    my \lower = (2..sqrt N).grep(N %% *);
+    unique flat 1, lower, N «div« lower, N;
+}
+
+multi proper-divisors (\N where BIG) is export {
+    my \factors = bag prime-factors(N);
+    return (1) if factors.total == 1;
+    my \these = factors.keys xx *;
+    my \upto = [X] factors.map: { 0 .. .value }
+    +factors.keys == 1
+      ?? (flat these «**« upto).grep(* !== N)
+      !! ([×] .list for these «**« upto).grep(* !== N)
+}
+
+multi proper-divisors (\N where SMALL) is export {
+    my \lower = (2..sqrt N).grep(N %% *);
+    unique flat 1, lower, N «div« lower;
 }
