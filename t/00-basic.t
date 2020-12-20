@@ -2,6 +2,8 @@ use v6;
 use Test;
 use Prime::Factor;
 
+plan 21;
+
 for '', 'a', .5, pi, 0, -12 -> $p {
     dies-ok { prime-factors($p) }, "Dies ok with bad parameter $p";
 }
