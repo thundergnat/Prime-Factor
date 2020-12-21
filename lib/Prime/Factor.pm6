@@ -45,8 +45,27 @@ constant BIG   = 250000 .. *;
 
 multi divisors (1, :s(:$sort) = False) is export { (1,) }
 
-multi divisors (Int \N, :s(:$sort) = False) is export {
-    flat proper-divisors( N, :$sort ), N
+multi divisors (\N where BIG, :s(:$sort) = False) is export {
+    my \factors = bag prime-factors(N);
+    return (1,N) if factors.total == 1;
+    my \these = factors.keys xx *;
+    my \upto = [X] factors.map: { 0 .. .value }
+    +factors.keys == 1
+    ?? $sort
+      ?? flat sort (these «**« upto)
+      !! flat (these «**« upto)
+    !! $sort
+      ?? flat sort ([×] .list for these «**« upto)
+      !! flat ([×] .list for these «**« upto)
+}
+
+multi divisors (\N where SMALL, :s(:$sort) = False) is export {
+    return (1,N) if N.is-prime;
+    my \sqrrt = (sqrt N).narrow;
+    my \lower = (2 ..^ sqrrt.ceiling).grep(N %% *);
+    $sort
+      ?? flat ( 1, (sort flat lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower), N)
+      !! flat (1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower, N)
 }
 
 multi proper-divisors (1, :s(:$sort) = False) is export { (1,) }
