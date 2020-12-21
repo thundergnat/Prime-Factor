@@ -141,11 +141,11 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 
     # Proper divisors are nearly the same but don't return the number itself
 
-    put divisors 2**50-1;
+    put proper-divisors 2**50-1;
 
     # or sorted
 
-    put divisors 2**50-1 :s;
+    put proper-divisors 2**50-1 :s;
 
 
 =head1 USAGE
