@@ -139,7 +139,7 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 
     # if you want sorted output, pass in a :sort or :s flag.
 
-    put divisors 2**50-1 :sort;
+    put divisors 2**50-1, :sort;
     #`[1 3 11 31 33 93 251 341 601 753 1023 1801 1803 2761 4051 5403 6611 7781
      8283 12153 18631 19811 19833 23343 44561 55831 55893 59433 85591 125581
      133683 150851 167493 204941 256773 376743 452051 452553 614141 614823
@@ -164,7 +164,7 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 
     # or sorted
 
-    put proper-divisors 2**50-1 :s;
+    put proper-divisors 2**50-1, :s;
 
 
 =head1 USAGE
