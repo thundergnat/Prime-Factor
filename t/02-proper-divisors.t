@@ -5,7 +5,7 @@ use Prime::Factor;
 plan 84;
 
 # Test "SMALL" integers 
-is-deeply(proper-divisors(1).sort, (1,), 'SMALL proper-divisors 1 ok');
+is-deeply(proper-divisors(1).sort, (), 'SMALL proper-divisors 1 ok');
 is-deeply(proper-divisors(2).sort, (1,), 'SMALL proper-divisors 2 ok');
 is-deeply(proper-divisors(3).sort, (1,), 'SMALL proper-divisors 3 ok');
 is-deeply(proper-divisors(4).sort, (1, 2), 'SMALL proper-divisors 4 ok');
@@ -27,7 +27,7 @@ is-deeply(proper-divisors(19).sort, (1,), 'SMALL proper-divisors 19 ok');
 is-deeply(proper-divisors(20).sort, (1, 2, 4, 5, 10), 'SMALL proper-divisors 20 ok');
 
 # Test "SMALL" auto-sort 
-is-deeply(proper-divisors(1, :s), (1,), 'auto-sort SMALL proper-divisors 1 ok');
+is-deeply(proper-divisors(1, :s), (), 'auto-sort SMALL proper-divisors 1 ok');
 is-deeply(proper-divisors(2, :s), (1,), 'auto-sort SMALL proper-divisors 2 ok');
 is-deeply(proper-divisors(3, :s), (1,), 'auto-sort SMALL proper-divisors 3 ok');
 is-deeply(proper-divisors(4, :s), (1, 2), 'auto-sort SMALL proper-divisors 4 ok');
