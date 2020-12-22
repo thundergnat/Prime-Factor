@@ -1,4 +1,4 @@
-unit module Prime::Factor:ver<0.3.1>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.3.2>:auth<github:thundergnat>;
 
 sub prime-factors ( Int $n where * > 0 ) is export {
     return $n if $n.is-prime;
@@ -35,21 +35,22 @@ sub find-factor ( Int $n, $constant = 1 ) {
 
 #`[
 
-Determined by testing, on average, below ~250000 is divisors is faster by trial
-division, above ~250000, on average is faster by factoring.
+Determined by testing, below ~250000, on average, divisors is faster by trial
+division, above ~250000, on average, is faster by factoring.
 
 ]
+constant breakpoint = 250000;
 
-constant SMALL = 1 ..^ 250000;
-constant BIG   = 250000 .. *;
+constant SMALL = 1 ..^ breakpoint;
+constant BIG   = breakpoint .. *;
 
 multi divisors (1, :s(:$sort) = False) is export { (1,) }
 
-multi divisors (\N where BIG, :s(:$sort) = False) is export {
+multi divisors (Int \N where BIG, :s(:$sort) = False) is export {
+    return (1,N) if N.is-prime;
     my \factors = bag prime-factors(N);
-    return (1,N) if factors.total == 1;
-    my \these = factors.keys xx *;
-    my \upto = [X] factors.map: { 0 .. .value }
+    my \these   = factors.keys xx *;
+    my \upto    = [X] factors.map: { 0 .. .value }
     +factors.keys == 1
     ?? $sort
       ?? flat sort (these «**« upto)
@@ -59,38 +60,46 @@ multi divisors (\N where BIG, :s(:$sort) = False) is export {
       !! flat ([×] .list for these «**« upto)
 }
 
-multi divisors (\N where SMALL, :s(:$sort) = False) is export {
+multi divisors (Int \N where SMALL, :s(:$sort) = False) is export {
     return (1,N) if N.is-prime;
     my \sqrrt = (sqrt N).narrow;
-    my \lower = (2 ..^ sqrrt.ceiling).grep(N %% *);
+    my \lower = (2 ..^ sqrrt.ceiling).grep: N %% *;
     $sort
-      ?? flat ( 1, (sort flat lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower), N)
-      !! flat (1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower, N)
+      ?? flat 1, (sort flat lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower), N
+      !! flat 1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower, N
 }
 
-multi proper-divisors (1, :s(:$sort) = False) is export { (1,) }
+multi divisors (Any $n, :s(:$sort) = False) is export {
+    die "divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
+}
 
-multi proper-divisors (\N where BIG, :s(:$sort) = False) is export {
+multi proper-divisors (1, :s(:$sort) = False) is export { () }
+
+multi proper-divisors (Int \N where BIG, :s(:$sort) = False) is export {
+    return (1,) if N.is-prime;
     my \factors = bag prime-factors(N);
-    return (1,) if factors.total == 1;
-    my \these = factors.keys xx *;
-    my \upto = [X] factors.map: { 0 .. .value }
+    my \these   = factors.keys xx *;
+    my \upto    = [X] factors.map: { 0 .. .value }
     +factors.keys == 1
     ?? $sort
-      ?? flat sort (these «**« upto).grep(* !== N)
-      !! flat (these «**« upto).grep(* !== N)
+      ?? flat sort (these «**« upto).grep: * !== N
+      !! flat (these «**« upto).grep: * !== N
     !! $sort
-      ?? flat sort ([×] .list for these «**« upto).grep(* !== N)
-      !! flat ([×] .list for these «**« upto).grep(* !== N)
+      ?? flat sort ([×] .list for these «**« upto).grep: * !== N
+      !! flat ([×] .list for these «**« upto).grep: * !== N
 }
 
-multi proper-divisors (\N where SMALL, :s(:$sort) = False) is export {
+multi proper-divisors (Int \N where SMALL, :s(:$sort) = False) is export {
     return (1,) if N.is-prime;
     my \sqrrt = (sqrt N).narrow;
-    my \lower = (2 ..^ sqrrt.ceiling).grep(N %% *);
+    my \lower = (2 ..^ sqrrt.ceiling).grep: N %% *;
     $sort
-      ?? flat ( 1, (sort flat lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower))
-      !! flat (1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower)
+      ?? flat 1, (sort flat lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower)
+      !! flat 1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower
+}
+
+multi proper-divisors (Any $n, :s(:$sort) = False) is export {
+    die "proper-divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
 }
 
 
@@ -170,17 +179,18 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 =head1 USAGE
 
 
-C<prime-factors()> - Returns a list of all of the prime factors of a positive
+C<prime-factors()> - Returns the list of all of the prime factors of a positive
 integer. Results are returned in sorted order smallest to largest.
 
-C<divisors()> - Returns a list of all the whole number divisors of an integer,
-including 1 and itself. Results are not guaranteed to be in any order. If you
-want ordered results, pass in the C<:sort> or C<:s> flag set to a truthy value.
+C<divisors()> - Returns the list of all the whole number divisors of a positive
+integer, including 1 and itself. Results are not guaranteed to be in any order.
+If you want ordered results, pass in the C<:sort> or C<:s> flag set to a truthy
+value.
 
-C<proper-divisors()> - Returns a list of all the whole number divisors of an
-integer, including 1 but not itself. Results are not guaranteed to be in any
-order.  If you want ordered results, pass in the C<:sort> or C<:s> flag set to
-a truthy value.
+C<proper-divisors()> - Returns the list of all the whole number divisors of a
+positive integer > 1, including 1 but not itself. Results are not guaranteed to
+be in any order. If you want ordered results, pass in the C<:sort> or C<:s>
+flag set to a truthy value. By definition, 1 has no proper divisors.
 
 
 =head1 BUGS
