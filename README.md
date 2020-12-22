@@ -71,11 +71,11 @@ SYNOPSIS
 USAGE
 =====
 
-`prime-factors()` - Returns a list of all of the prime factors of a positive integer. Results are returned in sorted order smallest to largest.
+`prime-factors()` - Returns the list of all of the prime factors of a positive integer. Results are returned in sorted order smallest to largest.
 
-`divisors()` - Returns a list of all the whole number divisors of an integer, including 1 and itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value.
+`divisors()` - Returns the list of all the whole number divisors of a positive integer, including 1 and itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value.
 
-`proper-divisors()` - Returns a list of all the whole number divisors of an integer, including 1 but not itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value.
+`proper-divisors()` - Returns the list of all the whole number divisors of a positive integer > 1, including 1 but not itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. By definition, 1 has no proper divisors.
 
 BUGS
 ====
