@@ -2,9 +2,9 @@ use v6;
 use Test;
 use Prime::Factor;
 
-plan 84;
+plan 87;
 
-# Test "SMALL" integers 
+# Test "SMALL" integers
 is-deeply(divisors(1).sort, (1,), 'SMALL divisors 1 ok');
 is-deeply(divisors(2).sort, (1, 2), 'SMALL divisors 2 ok');
 is-deeply(divisors(3).sort, (1, 3), 'SMALL divisors 3 ok');
@@ -26,7 +26,7 @@ is-deeply(divisors(18).sort, (1, 2, 3, 6, 9, 18), 'SMALL divisors 18 ok');
 is-deeply(divisors(19).sort, (1, 19), 'SMALL divisors 19 ok');
 is-deeply(divisors(20).sort, (1, 2, 4, 5, 10, 20), 'SMALL divisors 20 ok');
 
-# Test "SMALL" auto-sort 
+# Test "SMALL" auto-sort
 is-deeply(divisors(1, :s), (1,), 'auto-sort SMALL divisors 1 ok');
 is-deeply(divisors(2, :s), (1, 2), 'auto-sort SMALL divisors 2 ok');
 is-deeply(divisors(3, :s), (1, 3), 'auto-sort SMALL divisors 3 ok');
@@ -50,7 +50,7 @@ is-deeply(divisors(20, :s), (1, 2, 4, 5, 10, 20), 'auto-sort SMALL divisors 20 o
 
 
 
-# Test "BIG" integers 
+# Test "BIG" integers
 is-deeply(divisors(3177779801).sort, (1, 7, 49, 137, 959, 6713, 473377, 3313639, 23195473, 64852649, 453968543, 3177779801), 'BIG divisors 3177779801 ok');
 is-deeply(divisors(3177779802).sort, (1, 2, 3, 6, 71, 142, 213, 426, 7459577, 14919154, 22378731, 44757462, 529629967, 1059259934, 1588889901, 3177779802), 'BIG divisors 3177779802 ok');
 is-deeply(divisors(3177779803).sort, (1, 11, 121, 1331, 2387513, 26262643, 288889073, 3177779803), 'BIG divisors 3177779803 ok');
@@ -97,8 +97,17 @@ is-deeply(divisors(3177779819, :s), (1, 79, 263, 20777, 152947, 12082813, 402250
 is-deeply(divisors(3177779820, :s), (1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 23, 30, 46, 60, 69, 92, 115, 138, 230, 233, 276, 345, 460, 466, 690, 699, 932, 1165, 1380, 1398, 2330, 2796, 3495, 4660, 5359, 6990, 9883, 10718, 13980, 16077, 19766, 21436, 26795, 29649, 32154, 39532, 49415, 53590, 59298, 64308, 80385, 98830, 107180, 118596, 148245, 160770, 197660, 227309, 296490, 321540, 454618, 592980, 681927, 909236, 1136545, 1363854, 2273090, 2302739, 2727708, 3409635, 4546180, 4605478, 6819270, 6908217, 9210956, 11513695, 13638540, 13816434, 23027390, 27632868, 34541085, 46054780, 52962997, 69082170, 105925994, 138164340, 158888991, 211851988, 264814985, 317777982, 529629970, 635555964, 794444955, 1059259940, 1588889910, 3177779820), 'auto-sort BIG divisors 3177779820 ok');
 is-deeply(divisors(3177779821, :s), (1, 10333, 307537, 3177779821), 'auto-sort BIG divisors 3177779821 ok');
 
-dies-ok({divisors(0)}, 'Dies on zero');
-dies-ok({divisors(-8)}, 'Dies on negative');
+is-deeply(divisors(0), (), 'divisors(0) returns an empty list');
+is-deeply(divisors(-8), (), 'divisors of a negative Integer returns an empty list');
+
+is-deeply(divisors('12'), (1, 2, 3, 6, 4, 12), 'divisors of an integer string dispatches ok');
+
+fails-like { divisors('12.5') }, X::AdHoc,
+    :message(/'divisors() not defined for Rat parameters. Coerce to Int before calling.'/),
+    'non-Integer string fails';
+
+fails-like { divisors('zero') }, X::AdHoc,
+    :message(/'divisors() not defined for non Integer strings.'/),
+    'non-numeric string fails';
 
 done-testing;
-
