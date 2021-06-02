@@ -14,7 +14,13 @@ SYNOPSIS
 
     say prime-factors(720); # (2 2 2 2 3 3 5)
 
+    say prime-factors('720'); # (2 2 2 2 3 3 5)
+
     say prime-factors(2**50-1) # (3 11 31 251 601 1801 4051)
+
+    say prime-factors(-6); # ()
+
+    say prime-factors(18.75); # Failure: message('prime-factors() not defined for non Integer parameters.')
 
 
     # divisors subs are unsorted by default, semi-random order
@@ -71,11 +77,11 @@ SYNOPSIS
 USAGE
 =====
 
-`prime-factors()` - Returns the list of all of the prime factors of a positive integer. Results are returned in sorted order smallest to largest.
+`prime-factors()` - Returns the list of all of the prime factors of a positive integer. Results are returned in sorted order smallest to largest. Will attempt to coerce Integer numeric strings to an Integer and act on that. Returns an empty list for Integers < 2. Returns a Failure for non Integer parameters.
 
-`divisors()` - Returns the list of all the whole number divisors of a positive integer, including 1 and itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value.
+`divisors()` - Returns the list of all the whole number divisors of a positive integer, including 1 and itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. Will attempt to coerce Integer numeric strings to an Integer and act on that. Returns an empty list for Integers < 1. Returns a Failure for non Integer parameters.
 
-`proper-divisors()` - Returns the list of all the whole number divisors of a positive integer > 1, including 1 but not itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. By definition, 1 has no proper divisors.
+`proper-divisors()` - Returns the list of all the whole number divisors of a positive integer > 1, including 1 but not itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. By definition, 1 has no proper divisors. Will attempt to coerce Integer numeric strings to an Integer and act on that. Returns an empty list for Integers < 2. Returns a Failure for non Integer parameters.
 
 BUGS
 ====
