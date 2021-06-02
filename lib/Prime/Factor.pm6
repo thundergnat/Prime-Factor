@@ -1,10 +1,23 @@
-unit module Prime::Factor:ver<0.3.2>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.4.0>:auth<github:thundergnat>;
 
-sub prime-factors ( Int $n where * > 0 ) is export {
+multi prime-factors ( Int $n where * > 1 ) is export {
     return $n if $n.is-prime;
-    return [] if $n == 1;
     my $factor = find-factor( $n );
     sort flat prime-factors( $factor ), prime-factors( $n div $factor );
+}
+
+multi prime-factors ( Int $n where * < 2 ) is export { () };
+
+multi prime-factors (Str $n) is export {
+    if $n.Numeric !~~ Failure {
+        samewith (+$n).narrow;
+    } else {
+        fail "prime-factors() not defined for non Integer strings."
+    }
+}
+
+multi prime-factors (Any $n) is export {
+    fail "prime-factors() not defined for non Integer parameters."
 }
 
 # use Pollard's rho algorithm to speed factorization
@@ -69,8 +82,19 @@ multi divisors (Int \N where SMALL, :s(:$sort) = False) is export {
       !! flat 1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower, N
 }
 
+multi divisors (Int \N where * < 1, :s(:$sort) = False) is export { () }
+
+multi divisors (Str $n, :s(:$sort) = False) is export {
+    if $n.Numeric !~~ Failure {
+        samewith (+$n).narrow, :sort($sort);
+    } else {
+        fail "divisors() not defined for non Integer strings."
+    }
+}
+
+
 multi divisors (Any $n, :s(:$sort) = False) is export {
-    die "divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
+    fail "divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
 }
 
 multi proper-divisors (1, :s(:$sort) = False) is export { () }
@@ -98,8 +122,18 @@ multi proper-divisors (Int \N where SMALL, :s(:$sort) = False) is export {
       !! flat 1, lower, (Slip(sqrrt) if sqrrt ~~ Int), N «div« lower
 }
 
+multi proper-divisors (Int \N where * < 1, :s(:$sort) = False) is export { () }
+
+multi proper-divisors (Str $n, :s(:$sort) = False) is export {
+    if $n.Numeric !~~ Failure {
+        samewith (+$n).narrow, :sort($sort);
+    } else {
+        fail "proper-divisors() not defined for non Integer strings."
+    }
+}
+
 multi proper-divisors (Any $n, :s(:$sort) = False) is export {
-    die "proper-divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
+    fail "proper-divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
 }
 
 
@@ -121,7 +155,13 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 
     say prime-factors(720); # (2 2 2 2 3 3 5)
 
+    say prime-factors('720'); # (2 2 2 2 3 3 5)
+
     say prime-factors(2**50-1) # (3 11 31 251 601 1801 4051)
+
+    say prime-factors(-6); # ()
+
+    say prime-factors(18.75); # Failure: message('prime-factors() not defined for non Integer parameters.')
 
 
     # divisors subs are unsorted by default, semi-random order
@@ -180,18 +220,23 @@ and a few other utility subs: ```divisors()``` and ```proper-divisors()```
 
 
 C<prime-factors()> - Returns the list of all of the prime factors of a positive
-integer. Results are returned in sorted order smallest to largest.
+integer. Results are returned in sorted order smallest to largest. Will attempt
+to coerce Integer numeric strings to an Integer and act on that. Returns an
+empty list for Integers < 2. Returns a Failure for non Integer parameters.
 
 C<divisors()> - Returns the list of all the whole number divisors of a positive
 integer, including 1 and itself. Results are not guaranteed to be in any order.
 If you want ordered results, pass in the C<:sort> or C<:s> flag set to a truthy
-value.
+value. Will attempt to coerce Integer numeric strings to an Integer and act on
+that. Returns an empty list for Integers < 1. Returns a Failure for non Integer
+parameters.
 
 C<proper-divisors()> - Returns the list of all the whole number divisors of a
 positive integer > 1, including 1 but not itself. Results are not guaranteed to
-be in any order. If you want ordered results, pass in the C<:sort> or C<:s>
-flag set to a truthy value. By definition, 1 has no proper divisors.
-
+be in any order. If you want ordered results, pass in the C<:sort> or C<:s> flag
+set to a truthy value. By definition, 1 has no proper divisors. Will attempt to
+coerce Integer numeric strings to an Integer and act on that. Returns an empty
+list for Integers < 2. Returns a Failure for non Integer parameters.
 
 =head1 BUGS
 
