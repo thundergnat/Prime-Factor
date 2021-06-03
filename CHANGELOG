@@ -1,0 +1,56 @@
+0.4.0 Jun 2 2021
+	Modify behavior for "bad" parameters. Attempt to recover gracefully.
+	Return a Failure for "bad" parameters rather than just die()ing.
+	Test new bahavior.
+	Make some existing testing more rigorous.
+
+0.3.2 Dec 22 2020
+	proper-divisors(1) now more accurately returns an empty list.
+	Reconfigure breakpoint between "small" and "large" integers.
+	Expand docs.
+
+0.3.1 Dec 21 2020
+	Add options to divisors() and proper-divisor() routines.
+    Add tests for new options.
+	Update docs and regen.
+
+0.3.0 Dec 20 2020
+	Add divisors() and proper-divisor() routines.
+	New tests for new routines.
+	Update Docs.
+
+0.2.4 Oct 29 2018
+	Fix for stricter placement of use V6.
+
+0.2.3 Jul 10 2018
+	Add small prime pre-filtering.
+	Various performance tweaks. 
+
+0.2.2 Apr 23 2017
+	Minor tweking and optimizations.
+	Expand testing to larger numbers
+
+0.2.1 Jul 13 2016
+	Speed up a few percent for common cases.
+
+0.2.0 Jun 25 2016
+	Refactor to be more deterministic.
+    Remove randomizer. Hurt as much as it helped and made timings inconsistant.
+	Minor tweaks to improve speed.
+
+0.1.1 June 22 2016
+	Restrict randomizer for rho algorithm.
+	Was causing wildly different timings run to run.
+
+0.1.0 Jun 21 2016
+	Heavily influenced by Damian Conway presentation "On the shoulder of giants"
+	Change to use Pollard's rho algorithm for factoring.
+	Blatently stole code from presentation and expanded on it.
+	New tests.
+
+0.0.2 Jan 15 2016
+	Speed up generation of primes. Still slow but better.
+
+0.0.1 Jan 10 2016
+	Initial commit. 
+	Slow, buggy but it works... mostly.
