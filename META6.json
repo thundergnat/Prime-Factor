@@ -1,15 +1,25 @@
 {
-    "perl"        : "6.*",
-    "name"        : "Prime::Factor",
-    "version"     : "0.4.0",
-    "description" : "Returns all prime factors of an integer.",
-    "authors"     : [ "Steve Schulze (thundergnat)" ],
-    "provides"    : {
-        "Prime::Factor" : "lib/Prime/Factor.pm6"
-    },
-    "depends"     : [],
-    "source-type" : "git",
-    "source-url"  : "git://github.com/thundergnat/Prime-Factor.git",
-    "license"     : "Artistic-2.0",
-    "tags"        : [ "Number", "Prime", "Factor" ]
+  "auth": "zef:thundergnat",
+  "authors": [
+    "thundergnat"
+  ],
+  "build-depends": [
+  ],
+  "depends": [
+  ],
+  "description": "blah blah blah",
+  "license": "Artistic-2.0",
+  "name": "Prime::Factor",
+  "perl": "6.d",
+  "provides": {
+    "Prime::Factor": "lib/Prime/Factor.pm6"
+  },
+  "resources": [
+  ],
+  "source-url": "https://github.com/thundergnat/Prime-Factor.git",
+  "tags": [
+  ],
+  "test-depends": [
+  ],
+  "version": "0.0.1"
 }
