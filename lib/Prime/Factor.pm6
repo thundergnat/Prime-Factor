@@ -1,4 +1,4 @@
-unit module Prime::Factor:ver<0.4.1>:auth<github:thundergnat>;
+unit module Prime::Factor:ver<0.4.1>:auth<zef:thundergnat>;
 
 multi prime-factors ( Int $n where * > 1 ) is export {
     return $n if $n.is-prime;

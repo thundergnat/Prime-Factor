@@ -18,11 +18,11 @@
   ],
   "source-url": "https://github.com/thundergnat/Prime-Factor.git",
   "tags": [
-     "Number",
-     "Prime",
-     "Factor",
-     "Factors",
-     "Divisors"
+    "Number",
+    "Prime",
+    "Factor",
+    "Factors",
+    "Divisors"
   ],
   "test-depends": [
   ],
