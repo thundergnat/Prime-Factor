@@ -1,6 +1,9 @@
 Revision history for Prime-Factor
 
 {{$NEXT}}
+    - Add sigma-sum() and aliquot-sum convenience routines
+    - Test sigma-sum and aliquot-sum routines
+
 
 0.4.1  2022-12-23T12:52:49-05:00
 

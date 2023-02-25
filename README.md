@@ -74,6 +74,12 @@ put proper-divisors 2**50-1;
 # or sorted
 
 put proper-divisors 2**50-1, :s;
+
+# Convenience routines sigma-sim() and aliquot-sum()
+
+say sigma-sum 145; # 180
+
+say aliquot-sum 145; # 35
 ```
 
 USAGE
@@ -84,6 +90,10 @@ USAGE
 `divisors()` - Returns the list of all the whole number divisors of a positive integer, including 1 and itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. Will attempt to coerce Integer numeric strings to an Integer and act on that. Returns an empty list for Integers < 1. Returns a Failure for non Integer parameters.
 
 `proper-divisors()` - Returns the list of all the whole number divisors of a positive integer > 1, including 1 but not itself. Results are not guaranteed to be in any order. If you want ordered results, pass in the `:sort` or `:s` flag set to a truthy value. By definition, 1 has no proper divisors. Will attempt to coerce Integer numeric strings to an Integer and act on that. Returns an empty list for Integers < 2. Returns a Failure for non Integer parameters.
+
+`sigma-sum()` - Returns the sum of divisors of a positive integer including that number.
+
+`aliquot-sum()` - Returns the sum of proper divisors of a positive integer.
 
 BUGS
 ====
