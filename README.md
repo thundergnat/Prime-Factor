@@ -7,8 +7,6 @@ Find factors of a positive integer.
 
 Exports the sub ```prime-factors()``` and a few other utility subs: ```divisors()``` and ```proper-divisors()```, ```aliquot-sum()``` and ```sigma-sum()```.
 
-say
-
 SYNOPSIS
 ========
 
