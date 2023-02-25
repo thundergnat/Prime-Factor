@@ -1,4 +1,4 @@
-unit module Prime::Factor:ver<0.4.1>:auth<zef:thundergnat>;
+unit module Prime::Factor:ver<0.4.2>:auth<zef:thundergnat>;
 
 multi prime-factors ( Int $n where * > 1 ) is export {
     return $n if $n.is-prime;
@@ -136,6 +136,10 @@ multi proper-divisors (Any $n, :s(:$sort) = False) is export {
     fail "proper-divisors() not defined for {$n.^name} parameters. Coerce to Int before calling.";
 }
 
+sub sigma-sum (Int(Cool) $n) is export { sum divisors $n }
+
+sub aliquot-sum (Int(Cool) $n) is export { sum proper-divisors $n }
+
 
 =begin pod
 =head1 NAME
@@ -214,6 +218,12 @@ put proper-divisors 2**50-1;
 
 put proper-divisors 2**50-1, :s;
 
+# Convenience routines sigma-sim() and aliquot-sum()
+
+say sigma-sum 145; # 180
+
+say aliquot-sum 145; # 35
+
 =end code
 
 
@@ -238,6 +248,11 @@ be in any order. If you want ordered results, pass in the C<:sort> or C<:s> flag
 set to a truthy value. By definition, 1 has no proper divisors. Will attempt to
 coerce Integer numeric strings to an Integer and act on that. Returns an empty
 list for Integers < 2. Returns a Failure for non Integer parameters.
+
+C<sigma-sum()> - Returns the sum of divisors of a positive integer including that
+number.
+
+C<aliquot-sum()> - Returns the sum of proper divisors of a positive integer.
 
 =head1 BUGS
 
