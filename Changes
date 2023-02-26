@@ -1,6 +1,8 @@
 Revision history for Prime-Factor
 
 {{$NEXT}}
+
+0.4.2  2023-02-26T10:46:47-05:00
     Add sigma-sum() and aliquot-sum convenience routines
     Test sigma-sum and aliquot-sum routines
     Give up on Window CI testing. It fails 19 out of 20 times for no reason.
