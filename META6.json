@@ -12,7 +12,7 @@
   "name": "Prime::Factor",
   "perl": "6.*",
   "provides": {
-    "Prime::Factor": "lib/Prime/Factor.pm6"
+    "Prime::Factor": "lib/Prime/Factor.rakumod"
   },
   "resources": [
   ],
