@@ -1,9 +1,28 @@
 unit module Prime::Factor:ver<0.4.2>:auth<zef:thundergnat>;
 
-multi prime-factors ( Int $n where * > 1 ) is export {
-    return $n if $n.is-prime;
-    my $factor = find-factor( $n );
-    sort flat prime-factors( $factor ), prime-factors( $n div $factor );
+my @small-primes = 2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,101
+             ,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,193,197,199;
+
+
+multi prime-factors ( Int $n is copy where * > 0 ) is export {
+    return ($n) if $n.is-prime;
+    my @factors;
+    for @small-primes -> $p {
+         @factors.push($p) and $n div= $p while $n %% $p;
+         return @factors.List if $n == 1;
+         return (flat @factors, $n) if $n.is-prime;
+    }
+    while ($n > 1) {
+        my $factor;
+        if $n > 100.exp(2) {
+            $factor = find-factor( $n, 5 )
+        } else {
+            $factor = find-factor( $n )
+        }
+        @factors.push($factor) and $n div= $factor while $n %% $factor;
+        return sort @factors if $n == 1;
+        return (sort |@factors, $n) if $n.is-prime;
+    }
 }
 
 multi prime-factors ( Int $n where * < 2 ) is export { () };
@@ -24,10 +43,6 @@ multi prime-factors (Any $n) is export {
 # See Wikipedia "Pollard's rho algorithm" and
 # Damian Conways "On the Shoulders of Giants" presentation from YAPC::NA 2016
 sub find-factor ( Int $n, $constant = 1 ) {
-    return 2 unless $n +& 1;
-    if (my $gcd = $n gcd 6541380665835015) > 1 { # magic number: [*] primes 3 .. 43
-        return $gcd if $gcd != $n
-    }
     my $x      = 2;
     my $rho    = 1;
     my $factor = 1;
@@ -39,7 +54,7 @@ sub find-factor ( Int $n, $constant = 1 ) {
             $x = ( $x * $x + $constant ) % $n;
             $factor = ( $x - $fixed ) gcd $n;
             last if 1 < $factor;
-            $i = $i + 1;
+            ++$i;
         }
     }
     $factor = find-factor( $n, $constant + 1 ) if $n == $factor;
